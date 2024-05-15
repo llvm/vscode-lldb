@@ -25,3 +25,4 @@ jobs:
       run: |
         npm install
         npm run package
+        npm run publish -- -p "${{ secrets.VSCODE_MARKETPLACE_TOKEN }}"
