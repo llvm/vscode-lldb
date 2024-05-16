@@ -1,5 +1,5 @@
 # This workflow updates the repository for recent changes to llvm-project.
-name: IntegrateLLVMProject
+name: Integrate Monorepo Changes
 
 on:
   # Run the workflow every day (9am PST) to pull in any changes from llvm-project.
