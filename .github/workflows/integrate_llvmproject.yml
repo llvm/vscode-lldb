@@ -35,6 +35,7 @@ jobs:
           cp -r llvm_src/lldb/tools/lldb-dap/syntaxes ./
           cp llvm_src/lldb/LICENSE.TXT ./
           cp llvm_src/lldb/tools/lldb-dap/.gitignore ./
+          cp llvm_src/lldb/tools/lldb-dap/.vscodeignore ./
           cp llvm_src/lldb/tools/lldb-dap/*.md ./
           cp llvm_src/lldb/tools/lldb-dap/*.json ./
 
