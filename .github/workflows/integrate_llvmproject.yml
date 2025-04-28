@@ -34,10 +34,11 @@ jobs:
           cp -r llvm_src/lldb/tools/lldb-dap/src-ts ./
           cp -r llvm_src/lldb/tools/lldb-dap/syntaxes ./
           cp llvm_src/lldb/LICENSE.TXT ./
+          cp llvm_src/lldb/tools/lldb-dap/*.json ./
+          cp llvm_src/lldb/tools/lldb-dap/*.md ./
+          cp llvm_src/lldb/tools/lldb-dap/*.png ./
           cp llvm_src/lldb/tools/lldb-dap/.gitignore ./
           cp llvm_src/lldb/tools/lldb-dap/.vscodeignore ./
-          cp llvm_src/lldb/tools/lldb-dap/*.md ./
-          cp llvm_src/lldb/tools/lldb-dap/*.json ./
 
       - name: Commit updated source
         run: |
