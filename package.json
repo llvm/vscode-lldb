@@ -302,6 +302,9 @@
         "language": "objective-c"
       },
       {
+        "language": "objective-cpp"
+      },
+      {
         "language": "objectpascal"
       },
       {
@@ -329,6 +332,7 @@
           "fortran-modern",
           "nim",
           "objective-c",
+          "objective-cpp",
           "objectpascal",
           "pascal",
           "rust",
