@@ -38,6 +38,7 @@ jobs:
           cp llvm_src/lldb/tools/lldb-dap/*.md ./
           cp llvm_src/lldb/tools/lldb-dap/*.png ./
           cp llvm_src/lldb/tools/lldb-dap/.gitignore ./
+          cp llvm_src/lldb/tools/lldb-dap/.prettierrc.json ./
           cp llvm_src/lldb/tools/lldb-dap/.vscodeignore ./
 
       - name: Commit updated source
