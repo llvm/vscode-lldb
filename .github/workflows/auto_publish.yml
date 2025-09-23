@@ -1,28 +1,30 @@
 # This workflow publishes the extension to the VSCode marketplace when the version changes.
-name: Publish to VSCode Marketplace
+name: Publish to Visual Studio Code Marketplace
 on:
   # Run whenever a new commit is pushed to the main branch.
   push:
     branches: [ main ]
     paths: [ 'package.json' ]
-  workflow_dispatch:
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-
-    - name: detect version
-      uses: EndBug/version-check@v2.0.1
-      id: check
-      if: github.event_name != 'workflow_dispatch'
+    - name: Checkout repository
+      uses: actions/checkout@v4
       with:
-        # Search the diff content for version changes.
-        diff-search: true
+        ref: main
 
-    - name: publish
+    - name: Check version changes
+      uses: EndBug/version-check@v2
+      id: check
+
+    - name: Install dependencies
+      if: steps.check.outputs.changed == 'true'
+      run: npm install
+
+    - name: Publish
+      if: steps.check.outputs.changed == 'true'
       run: |
-        npm install
         npm run package
         npm run publish -- -p "${{ secrets.VSCODE_MARKETPLACE_TOKEN }}"
