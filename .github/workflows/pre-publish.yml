@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  publish:
+  publish-pre:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
