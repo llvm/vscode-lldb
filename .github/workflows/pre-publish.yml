@@ -20,12 +20,17 @@ jobs:
 
     - name: Get the package version
       id: get_version
-      run: echo "PACKAGE_VERSION=$(jq -r '.version' package.json)" >> "$GITHUB_OUTPUT"
+      run: |
+        PACKAGE_VERSION= $(jq -r '.version' package.json)
+        MAJOR_VERSION=$(echo "$PACKAGE_VERSION" | cut -d'.' -f1)
+        MINOR_VERSION=$(echo "$PACKAGE_VERSION" | cut -d'.' -f2)
+        echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> "$GITHUB_OUTPUT"
+        echo "MAJOR_VERSION=$MAJOR_VERSION" >> "$GITHUB_OUTPUT"
+        echo "MINOR_VERSION=$MINOR_VERSION" >> "$GITHUB_OUTPUT"
 
     - name: Detect invalid version
       id: version_check
       run: |
-        MINOR_VERSION=$(echo "$PACKAGE_VERSION" | cut -d'.' -f2)
         if (( MINOR_VERSION % 2 != 0 )); then
           exit 1
         fi
@@ -34,13 +39,9 @@ jobs:
       id: install_deps
       run: npm install
 
-    - name: Bump the minor version
-      id: bump_minor
-      run: npm version minor --no-git-tag-version
-
-    - name: Bump the patch version
-      id: bump_patch
-      run: npm version patch --no-git-tag-version "$(date +%Y%m%d)"
+    - name: Set the pre-release version number
+      id: update_version
+      run: npm version --no-git-tag-version "$MAJOR_VERSION.$MINOR_VERSION.$(date +%Y%m%d)"
 
     - name: Package
       id: package
