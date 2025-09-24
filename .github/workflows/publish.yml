@@ -1,6 +1,6 @@
 # This workflow publishes the extension to the VSCode marketplace when the version changes.
 name: Publish to Visual Studio Code Marketplace
-on: push
+on: [push, workflow_dispatch]
 
 jobs:
   publish:
@@ -16,11 +16,11 @@ jobs:
       id: check
 
     - name: Install dependencies
-      if: steps.check.outputs.changed == 'true'
+      if: steps.check.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
       run: npm install
 
     - name: Publish
-      if: steps.check.outputs.changed == 'true'
+      if: steps.check.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
       run: |
         npm run package
         npm run publish -- -p "${{ secrets.VSCODE_MARKETPLACE_TOKEN }}"
