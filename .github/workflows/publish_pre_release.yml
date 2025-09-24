@@ -19,7 +19,7 @@ jobs:
       uses: martinbeentjes/npm-get-version-action@v1.3.1
 
     - name: Tag nightly version
-      run: npm version "${{ steps.package-version.outputs.current-version }}-$(date %Y%m%d)"
+      run: npm version --no-git-tag-version "${{ steps.package-version.outputs.current-version }}-$(date +%Y%m%d)"
 
     - name: Publish
       run: |
