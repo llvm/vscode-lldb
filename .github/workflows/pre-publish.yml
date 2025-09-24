@@ -1,0 +1,45 @@
+# This workflow publishes a pre-release version of the extension to the VSCode marketplace
+name: Publish pre-release
+
+on:
+  # Run the workflow every day at 10m PST.
+  schedule:
+    - cron:  '0 17 * * *'
+
+  # Allows for running this workflow manually from the Actions tab.
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        ref: main
+
+    - name: Get the package version
+      id: get_version
+      run: echo "PACKAGE_VERSION=$(jq -r '.version' package.json)" >> "$GITHUB_OUTPUT"
+
+    - name: Detect invalid version
+      id: version_check
+      if: steps.get_version.outputs.PACKAGE_VERSION % 2 != 0
+      run: exit 1
+
+    - name: Install dependencies
+      id: install_deps
+      run: npm install
+
+    - name: Bump the minor version
+      id: bump_minor
+      run: npm version minor --no-git-tag-version
+
+    - name: Bump the patch version
+      id: bump_patch
+      run: npm version patch --no-git-tag-version "$(date +%Y%m%d)"
+
+    - name: Package
+      id: package
+      run: npm run package -- --pre-release
+
