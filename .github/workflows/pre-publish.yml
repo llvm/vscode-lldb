@@ -21,7 +21,7 @@ jobs:
     - name: Get the package version
       id: get_version
       run: |
-        PACKAGE_VERSION= $(jq -r '.version' package.json)
+        PACKAGE_VERSION=$(jq -r '.version' package.json)
         MAJOR_VERSION=$(echo "$PACKAGE_VERSION" | cut -d'.' -f1)
         MINOR_VERSION=$(echo "$PACKAGE_VERSION" | cut -d'.' -f2)
         echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> "$GITHUB_OUTPUT"
@@ -41,7 +41,7 @@ jobs:
 
     - name: Set the pre-release version number
       id: update_version
-      run: npm version --no-git-tag-version "$MAJOR_VERSION.$MINOR_VERSION.$(date +%Y%m%d)"
+      run: npm version --no-git-tag-version "$MAJOR_VERSION.$((MINOR_VERSION + 1)).$(date +%Y%m%d)"
 
     - name: Package
       id: package
