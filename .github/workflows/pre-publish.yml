@@ -24,7 +24,7 @@ jobs:
 
     - name: Detect invalid version
       id: version_check
-      if: ${{ steps.get_version.outputs.PACKAGE_VERSION % 2 != 0 }}
+      if: ${{ mod( steps.get_version.outputs.PACKAGE_VERSION, 2 ) != 0 }}
       run: exit 1
 
     - name: Install dependencies
