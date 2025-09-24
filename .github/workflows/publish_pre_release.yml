@@ -15,11 +15,11 @@ jobs:
       run: npm install
 
     - name: Get package.json version
-      id: get-version
-      uses: beaconbrigade/package-json-version@v1
+      id: package-version
+      uses: martinbeentjes/npm-get-version-action@v1.3.1
 
     - name: Tag nightly version
-      run: npm version "${{ steps.get-version.outputs.version }}-$(date %Y%m%d)"
+      run: npm version "${{ steps.package-version.outputs.current-version }}-$(date %Y%m%d)"
 
     - name: Publish
       run: |
