@@ -17,8 +17,11 @@ jobs:
 
     - name: Detect invalid version
       id: version_check
-      if: ${{ mod( steps.get_version.outputs.PACKAGE_VERSION, 2 ) != 0 }}
-      run: exit 1
+      run: |
+        MINOR_VERSION=$(echo "$PACKAGE_VERSION" | cut -d'.' -f2)
+        if (( MINOR_VERSION % 2 != 0 )); then
+          exit 1
+        fi
 
     - name: Install dependencies
       id: install_deps
