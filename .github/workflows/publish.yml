@@ -13,12 +13,16 @@ jobs:
 
     - name: Get the package version
       id: get_version
-      run: echo "PACKAGE_VERSION=$(jq -r '.version' package.json)" >> "$GITHUB_OUTPUT"
+      run: |
+        PACKAGE_VERSION=$(jq -r '.version' package.json)
+        MINOR_VERSION=$(echo "$PACKAGE_VERSION" | cut -d'.' -f2)
+        echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> "$GITHUB_OUTPUT"
+        echo "MINOR_VERSION=$MINOR_VERSION" >> "$GITHUB_OUTPUT"
 
     - name: Detect invalid version
       id: version_check
       run: |
-        MINOR_VERSION=$(echo "$PACKAGE_VERSION" | cut -d'.' -f2)
+        MINOR_VERSION=${{ steps.get_version.outputs.MINOR_VERSION }}
         if (( MINOR_VERSION % 2 != 0 )); then
           exit 1
         fi
