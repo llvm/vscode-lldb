@@ -31,7 +31,7 @@ jobs:
     - name: Detect invalid version
       id: version_check
       run: |
-        MINOR_VERSION=${{ env.MINOR_VERSION }}
+        MINOR_VERSION=${{ steps.get_version.outputs.MINOR_VERSION }}
         if (( MINOR_VERSION % 2 != 0 )); then
           exit 1
         fi
@@ -43,8 +43,8 @@ jobs:
     - name: Set the pre-release version number
       id: update_version
       run: |
-        MAJOR_VERSION=${{ env.MAJOR_VERSION }}
-        MINOR_VERSION=${{ env.MINOR_VERSION }}
+        MAJOR_VERSION=${{ steps.get_version.outputs.MAJOR_VERSION }}
+        MINOR_VERSION=${{ steps.get_version.outputs.MINOR_VERSION }}
         NIGHTLY_VERSION=$(echo "$MAJOR_VERSION.$((MINOR_VERSION + 1)).$(date +%Y%m%d)")
         echo "Updating version to: $NIGHTLY_VERSION"
         npm version --no-git-tag-version "$NIGHTLY_VERSION"
