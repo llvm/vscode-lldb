@@ -53,3 +53,6 @@ jobs:
       id: package
       run: npm run package -- --pre-release
 
+    - name: Publish
+      id: publish
+      run: npm run publish -- --pre-release -p "${{ secrets.VSCODE_MARKETPLACE_TOKEN }}"
