@@ -30,7 +30,7 @@ jobs:
 
       - name: Update extension source
         run: |
-          cp -r llvm_src/lldb/tools/lldb-dap/extension/* ./
+          cp -r llvm_src/lldb/tools/lldb-dap/extension/. ./
           cp llvm_src/lldb/tools/lldb-dap/README.md ./
 
       - name: Commit updated source
