@@ -2,9 +2,9 @@
 name: Integrate Monorepo Changes
 
 on:
-  # Run the workflow every day (9am PST) to pull in any changes from llvm-project.
+  # Run the workflow every 4 hours to pull in changes from llvm-project.
   schedule:
-    - cron:  '0 16 * * *'
+    - cron:  '0 */4 * * *'
 
   # Allows for running this workflow manually from the Actions tab.
   workflow_dispatch:
