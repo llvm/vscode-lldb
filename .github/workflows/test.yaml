@@ -1,0 +1,23 @@
+name: Test
+
+on:
+  push:
+    branches: ['**'] # Triggers on push to any branch
+
+  # Allows for running this workflow manually from the Actions tab.
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        id: install
+        run: npm install
+
+      - name: Test
+        id: test
+        run: npm test
