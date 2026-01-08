@@ -35,6 +35,10 @@ jobs:
       id: package
       run: npm run package
 
-    - name: Publish
-      id: publish
+    - name: Publish to the Visual Studio Code Marketplace
+      id: publish_marketplace
       run: npm run publish -- -p "${{ secrets.VSCODE_MARKETPLACE_TOKEN }}"
+
+    - name: Publish to the Open VSX Registry
+      id: publish_ovsx
+      run: npm run publish-ovsx -- -p "${{ secrets.OPENVSX_REGISTRY_TOKEN }}"
