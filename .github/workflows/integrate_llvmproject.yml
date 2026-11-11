@@ -19,10 +19,10 @@ jobs:
       - name: Timestamp Begin
         run: date
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
 
       - name: Clone llvm-project
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7
         with:
           repository: llvm/llvm-project
           ref: 'main'
